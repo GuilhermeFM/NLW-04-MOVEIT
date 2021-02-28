@@ -62,7 +62,7 @@
   margin-top: 6rem;
 }
 
-.main {
+.containerRight main {
   width: 100%;
 
   display: flex;
@@ -71,7 +71,7 @@
   justify-content: center;
 }
 
-.main div:first-child {
+.containerRight main div:first-child {
   width: 100%;
 
   display: flex;
@@ -82,7 +82,7 @@
   margin-top: 1.6rem;
 }
 
-.main div:first-child p {
+.containerRight main div:first-child p {
   font-size: 1.3rem;
   font-weight: 500;
   line-height: 2rem;
@@ -91,12 +91,12 @@
   margin-left: 1.6rem;
 }
 
-.main div:first-child img {
+.containerRight main div:first-child img {
   width: 2.6rem;
   height: 2.6rem;
 }
 
-.main div:last-child {
+.containerRight main div:last-child {
   width: 100%;
   margin-top: 2.6rem;
 
@@ -105,7 +105,7 @@
   justify-content: center;
 }
 
-.main div:last-child input {
+.containerRight main div:last-child input {
   height: 5.3rem;
   width: 100%;
 
@@ -119,13 +119,13 @@
   background: linear-gradient(90deg, #4953b8 0%, rgba(73, 83, 184, 0.2) 100%);
 }
 
-.main div:last-child input::placeholder {
+.containerRight main div:last-child input::placeholder {
   color: var(--text-highlight);
   font-size: 1.33rem;
   line-height: 2.26rem;
 }
 
-.main div:last-child button {
+.containerRight main div:last-child button {
   height: 5.3rem;
   padding: 1.83rem;
 

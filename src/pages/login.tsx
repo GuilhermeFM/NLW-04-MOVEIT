@@ -23,7 +23,7 @@ export default function login() {
             <strong>Bem Vindo</strong>
           </header>
 
-          <main className={styles.main}>
+          <main>
             <div>
               <img src="/icons/github-logo.svg" alt="github-logo" />
               <p>Faça login com seu github para começar</p>
