@@ -1,23 +1,43 @@
-.container {
-  height: 100vh;
+.background {
   width: 100vw;
+  height: 100vh;
   background: var(--blue);
 
   display: flex;
-  flex-flow: row nowrap;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+
+  overflow: auto;
 }
 
-.container > div {
+.container {
   display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
 
+.containerLeft {
+  width: calc(50% - (2 * 2rem));
+  margin: 0 2rem 0 2rem;
+}
+
+.containerLeft img {
+  width: 100%;
+  height: auto;
+}
+
+.containerRight {
+  width: calc(50% - (2 * 2rem));
+  margin: 0 2rem 0 2rem;
+
+  display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
 }
 
-.containerHeader {
+.containerRight header {
   width: 100%;
 
   display: flex;
@@ -27,12 +47,12 @@
   justify-content: center;
 }
 
-.containerHeader img {
+.containerRight header img {
   width: 320px;
   height: 76px;
 }
 
-.containerHeader strong {
+.containerRight header strong {
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.5rem;
@@ -42,7 +62,7 @@
   margin-top: 6rem;
 }
 
-.containerMain {
+.main {
   width: 100%;
 
   display: flex;
@@ -51,7 +71,7 @@
   justify-content: center;
 }
 
-.containerMain div:first-child {
+.main div:first-child {
   width: 100%;
 
   display: flex;
@@ -62,7 +82,7 @@
   margin-top: 1.6rem;
 }
 
-.containerMain div:first-child p {
+.main div:first-child p {
   font-size: 1.3rem;
   font-weight: 500;
   line-height: 2rem;
@@ -71,12 +91,12 @@
   margin-left: 1.6rem;
 }
 
-.containerMain div:first-child img {
+.main div:first-child img {
   width: 2.6rem;
   height: 2.6rem;
 }
 
-.containerMain div:last-child {
+.main div:last-child {
   width: 100%;
   margin-top: 2.6rem;
 
@@ -85,7 +105,7 @@
   justify-content: center;
 }
 
-.containerMain div:last-child input {
+.main div:last-child input {
   height: 5.3rem;
   width: 100%;
 
@@ -99,57 +119,58 @@
   background: linear-gradient(90deg, #4953b8 0%, rgba(73, 83, 184, 0.2) 100%);
 }
 
-.containerMain
-  div:last-child
-  input:fo
-  .containerMain
-  div:last-child
-  input::placeholder {
+.main div:last-child input::placeholder {
   color: var(--text-highlight);
   font-size: 1.33rem;
   line-height: 2.26rem;
 }
 
-.containerMain div:last-child button {
+.main div:last-child button {
   height: 5.3rem;
   padding: 1.83rem;
 
   background: var(--blue-dark);
   border: none;
   border-radius: 0 5px 5px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.buttonHighligh {
+.buttonHighlight {
   background: var(--green) !important;
 }
 
-@media (max-width: 1023px) {
-  .container > img {
+@media (max-width: 1080px) {
+  .background,
+  .container {
+    min-height: 540px;
+  }
+
+  .containerLeft {
     display: none;
   }
 
-  .container > div {
-    height: 100vh;
-    width: 100vw;
-    margin: 2rem;
+  .containerRight {
+    width: 100%;
+    margin: 0 1rem 0 1rem;
   }
 
-  .containerHeader img {
-    width: calc(320px - 4rem);
+  .containerRight header img {
+    width: calc(320px - (2 * 1rem));
     height: 76px;
   }
 }
 
-@media (min-width: 1024px) {
-  .container > img {
-    height: 100vh;
-    width: 50vw;
-    margin: 3rem 3rem 3rem 0;
+@media (min-width: 1444px) {
+  .containerLeft {
+    width: calc(50% - (3.5 * 1rem));
+    margin: 0 3.5rem 0 3.5rem;
   }
 
-  .container > div {
-    height: 100vh;
-    width: 50vw;
-    margin: 3rem;
+  .containerRight {
+    width: calc(50% - (3.5 * 1rem));
+    margin: 0 3.5rem 0 3.5rem;
   }
 }
