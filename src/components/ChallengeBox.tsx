@@ -9,8 +9,8 @@ export default function ChallengeBox() {
     ChallengeContext,
   );
 
-  function handleChallengeSucceeded() {
-    completeChallenge();
+  async function handleChallengeSucceeded() {
+    await completeChallenge();
     resetCountdown();
   }
 

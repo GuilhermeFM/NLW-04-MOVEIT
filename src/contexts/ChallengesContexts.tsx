@@ -1,8 +1,9 @@
-import { createContext, useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import challenges from '../../challenges.json';
 import LevelUpModal from '../components/LevelUpModal';
+import { AuthenticateContext } from './AuthenticateContext';
+import axios from 'axios';
 
 interface Challenge {
   type: 'body' | 'eye';
@@ -17,18 +18,13 @@ interface ChallengeContextData {
   challengesCompleted: number;
   activeChallenge: Challenge;
 
-  levelUp(): void;
+  closeLevelUpModal(): void;
   startNewChallenge(): void;
   resetChallenge(): void;
-  completeChallenge(): void;
-  closeLevelUpModal(): void;
+  completeChallenge(): Promise<void>;
 }
 
 interface ChallengeProviderProps {
-  level: number;
-  currentExperience: number;
-  challengesCompleted: number;
-
   children: React.ReactNode;
 }
 
@@ -36,28 +32,19 @@ export const ChallengeContext = createContext({} as ChallengeContextData);
 
 export default function ChallengeProvider({
   children,
-  level: pLevel,
-  currentExperience: pCurrentExperience,
-  challengesCompleted: pChallengesCompleted,
 }: ChallengeProviderProps) {
-  const [level, setLevel] = useState(pLevel ?? 1);
+  const { id } = useContext(AuthenticateContext);
 
-  const [currentExperience, setCurrentExperience] = useState(
-    pCurrentExperience ?? 0,
-  );
-
-  const [challengesCompleted, setChallengesCompleted] = useState(
-    pChallengesCompleted ?? 0,
-  );
-
+  const [level, setLevel] = useState(0);
+  const [currentExperience, setCurrentExperience] = useState(0);
+  const [challengesCompleted, setChallengesCompleted] = useState(0);
   const [activeChallenge, setActiveChallenge] = useState(null);
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
-  function levelUp() {
-    setLevel(level + 1);
-    setIsLevelUpModalOpen(true);
+  function closeLevelUpModal() {
+    setIsLevelUpModalOpen(false);
   }
 
   function startNewChallenge() {
@@ -78,7 +65,7 @@ export default function ChallengeProvider({
     setActiveChallenge(null);
   }
 
-  function completeChallenge() {
+  async function completeChallenge() {
     if (!activeChallenge) return;
 
     const { amount } = activeChallenge;
@@ -87,16 +74,23 @@ export default function ChallengeProvider({
 
     if (finalExperience >= experienceToNextLevel) {
       finalExperience = finalExperience - experienceToNextLevel;
-      levelUp();
+
+      setLevel(level + 1);
+      setIsLevelUpModalOpen(true);
     }
 
-    setCurrentExperience(finalExperience);
     setActiveChallenge(null);
+    setCurrentExperience(finalExperience);
     setChallengesCompleted(challengesCompleted + 1);
-  }
 
-  function closeLevelUpModal() {
-    setIsLevelUpModalOpen(false);
+    await axios.post('/api/users/update', {
+      id,
+      info: {
+        level: level + 1,
+        currentExperience: finalExperience,
+        challengesCompleted: challengesCompleted + 1,
+      },
+    });
   }
 
   useEffect(() => {
@@ -104,10 +98,19 @@ export default function ChallengeProvider({
   }, []);
 
   useEffect(() => {
-    Cookies.set('level', String(level));
-    Cookies.set('currentExperience', String(currentExperience));
-    Cookies.set('challengesCompleted', String(challengesCompleted));
-  }, [level, currentExperience, challengesCompleted]);
+    if (!id) return;
+
+    const fetchUser = async () => {
+      const { data } = await axios.get('/api/users/fetch', { params: { id } });
+      const { level, currentExperience, challengesCompleted } = data;
+
+      setLevel(level);
+      setCurrentExperience(currentExperience);
+      setChallengesCompleted(challengesCompleted);
+    };
+
+    fetchUser();
+  }, [id]);
 
   return (
     <ChallengeContext.Provider
@@ -117,7 +120,6 @@ export default function ChallengeProvider({
         experienceToNextLevel,
         challengesCompleted,
         activeChallenge,
-        levelUp,
         startNewChallenge,
         resetChallenge,
         completeChallenge,
