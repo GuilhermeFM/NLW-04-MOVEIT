@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-import styles from '../styles/Pages/Login.module.css';
 import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
 
@@ -90,8 +89,8 @@ export default function AuthenticateProvider({ children }) {
       }}
     >
       {authenticating ? (
-        <div className={styles.background}>
-          <div className={styles.loading}>
+        <div>
+          <div>
             <img src="/icons/background-logo.svg" alt="loading" />
           </div>
         </div>
