@@ -1,8 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import challenges from '../../challenges.json';
 import LevelUpModal from '../components/LevelUpModal';
-import { AuthenticateContext } from './AuthenticateContext';
 import axios from 'axios';
 
 interface Challenge {
@@ -12,6 +11,10 @@ interface Challenge {
 }
 
 interface ChallengeContextData {
+  id: number;
+  username: string;
+  avatarUrl: string;
+
   level: number;
   currentExperience: number;
   experienceToNextLevel: number;
@@ -25,19 +28,28 @@ interface ChallengeContextData {
 }
 
 interface ChallengeProviderProps {
+  id: number;
+  username: string;
+  avatarUrl: string;
+
+  level: number;
+  currentExperience: number;
+  challengesCompleted: number;
+
   children: React.ReactNode;
 }
 
 export const ChallengeContext = createContext({} as ChallengeContextData);
 
-export default function ChallengeProvider({
-  children,
-}: ChallengeProviderProps) {
-  const { id } = useContext(AuthenticateContext);
+export default function ChallengeProvider({ children, ...rest }: ChallengeProviderProps) {
+  const [id, setId] = useState(rest.id);
+  const [username, setUsername] = useState(rest.username);
+  const [avatarUrl, setAvatarUrl] = useState(rest.avatarUrl);
 
-  const [level, setLevel] = useState(0);
-  const [currentExperience, setCurrentExperience] = useState(0);
-  const [challengesCompleted, setChallengesCompleted] = useState(0);
+  const [level, setLevel] = useState(rest.level);
+  const [currentExperience, setCurrentExperience] = useState(rest.currentExperience);
+  const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted);
+
   const [activeChallenge, setActiveChallenge] = useState(null);
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
@@ -97,24 +109,12 @@ export default function ChallengeProvider({
     Notification.requestPermission();
   }, []);
 
-  useEffect(() => {
-    if (!id) return;
-
-    const fetchUser = async () => {
-      const { data } = await axios.get('/api/users/fetch', { params: { id } });
-      const { level, currentExperience, challengesCompleted } = data;
-
-      setLevel(level);
-      setCurrentExperience(currentExperience);
-      setChallengesCompleted(challengesCompleted);
-    };
-
-    fetchUser();
-  }, [id]);
-
   return (
     <ChallengeContext.Provider
       value={{
+        id,
+        username,
+        avatarUrl,
         level,
         currentExperience,
         experienceToNextLevel,

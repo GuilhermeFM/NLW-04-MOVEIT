@@ -1,26 +1,57 @@
+import axios from 'axios';
 import Head from 'next/head';
-import { FormEvent, useContext, useState, useRef } from 'react';
-import { AuthenticateContext } from '../contexts/AuthenticateContext';
+import { useState, useRef } from 'react';
+import { GetServerSideProps } from 'next';
 
-export default function SignIn() {
-  const usernameRef = useRef<HTMLInputElement>();
+interface InputTextWithButtonProps {
+  onClick(value: string): void;
+}
+
+function InputTextWithButton({ onClick }: InputTextWithButtonProps) {
+  const ref = useRef<HTMLInputElement>();
   const [filled, setFilled] = useState(false);
-  const { redirect } = useContext(AuthenticateContext);
 
-  function handleUsernameOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const username = e.target.value;
-    if (username.length > 0 && !filled) setFilled(true);
-    if (username.length <= 0) setFilled(false);
+  function handleTextOnChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    if (value.length > 0 && !filled) setFilled(true);
+    if (value.length <= 0) setFilled(false);
   }
 
-  async function handleSignIn() {
-    const username = usernameRef.current.value;
-    if (username) redirect(username);
+  function handleOnClick() {
+    const value = ref.current.value;
+    if (value) onClick(value);
+  }
+
+  return (
+    <div className="input-textbox">
+      <input
+        type="text"
+        autoComplete="off"
+        placeholder="Digite seu username"
+        onChange={handleTextOnChange}
+        ref={ref}
+      />
+      <button
+        type="submit"
+        onClick={handleOnClick}
+        className={`${filled ? 'bg-green-500' : 'bg-blue-dark'} hover:bg-green-500`}
+      >
+        <img alt="logar" src="/icons/arrow-right.svg" />
+      </button>
+    </div>
+  );
+}
+
+export default function SignIn() {
+  async function handleOnClick(value: string) {
+    const response = await axios.post('/api/github/login', { username: value });
+    const { githubLoginUrl } = response.data;
+    window.location.href = githubLoginUrl;
   }
 
   return (
     <div className="w-screen h-screen overflow-auto bg-blue flex-middle">
-      <div className="w-5/6 h-full xl:w-full xl:justify-evenly flex-center">
+      <div className="w-5/6 h-full xl:w-full xl:justify-evenly flex-middle">
         <Head>
           <title>Login | move.it</title>
         </Head>
@@ -29,7 +60,7 @@ export default function SignIn() {
           <img src="/icons/background-logo.svg" alt="background" />
         </div>
 
-        <div className="w-full xl:w-5/12 xl:h-3/6 flex-col-middle">
+        <div className="w-full lg:w-6/12 xl:w-5/12 xl:h-3/6 flex-col-middle">
           <header className="flex flex-col w-full mb-10">
             <section className="mb-10">
               <img src="/icons/logo.svg" alt="move it" />
@@ -45,25 +76,24 @@ export default function SignIn() {
               </p>
             </section>
           </header>
-
-          <div className="input-textbox">
-            <input
-              type="text"
-              autoComplete="off"
-              placeholder="Digite seu username"
-              onChange={handleUsernameOnChange}
-              ref={usernameRef}
-            />
-            <button
-              type="submit"
-              onClick={handleSignIn}
-              className={`${filled ? 'bg-green-500' : 'bg-blue-dark'} hover:bg-green-500`}
-            >
-              <img alt="logar" src="/icons/arrow-right.svg" />
-            </button>
-          </div>
+          <InputTextWithButton onClick={handleOnClick} />
         </div>
       </div>
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { id } = context.req.cookies;
+
+  if (id) {
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: true,
+      },
+    };
+  }
+
+  return { props: {} };
+};

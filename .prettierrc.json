@@ -4,5 +4,5 @@
   "arrowParens": "avoid",
   "endOfLine": "crlf",
   "tabWidth": 2,
-  "printWidth": 90
+  "printWidth": 100
 }

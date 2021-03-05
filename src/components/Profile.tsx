@@ -1,11 +1,9 @@
 import { useContext } from 'react';
-import { AuthenticateContext } from '../contexts/AuthenticateContext';
 import { ChallengeContext } from '../contexts/ChallengesContexts';
 import styles from '../styles/components/Profile.module.css';
 
 export default function Profile() {
-  const { level } = useContext(ChallengeContext);
-  const { username, avatarUrl } = useContext(AuthenticateContext);
+  const { username, avatarUrl, level } = useContext(ChallengeContext);
 
   return (
     <div className={styles.profileContainer}>

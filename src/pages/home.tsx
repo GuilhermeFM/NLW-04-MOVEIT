@@ -1,20 +1,32 @@
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import axios from 'axios';
+
+import Profile from '../components/Profile';
+import Countdown from '../components/Countdown';
+import ChallengeBox from '../components/ChallengeBox';
+import ExperienceBar from '../components/ExperienceBar';
+import CompletedChallenges from '../components/CompletedChallenges';
 
 import CountdownProvider from '../contexts/CountdownContexts';
-import ExperienceBar from '../components/ExperienceBar';
-import Profile from '../components/Profile';
-import CompletedChallenges from '../components/CompletedChallenges';
-import ChallengeBox from '../components/ChallengeBox';
-import Countdown from '../components/Countdown';
-
-import styles from '../styles/pages/Home.module.css';
 import ChallengeProvider from '../contexts/ChallengesContexts';
 
-export default function Home() {
+import { fetch } from '../services/mongodb';
+
+import styles from '../styles/pages/Home.module.css';
+
+interface HomeProps {
+  id: number;
+  username: string;
+  avatarUrl: string;
+
+  level: number;
+  currentExperience: number;
+  challengesCompleted: number;
+}
+
+export default function Home({ ...rest }: HomeProps) {
   return (
-    <ChallengeProvider>
+    <ChallengeProvider {...rest}>
       <div className={styles.container}>
         <Head>
           <title>Inicio | move.it</title>
@@ -37,3 +49,31 @@ export default function Home() {
     </ChallengeProvider>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { id: cId } = context.req.cookies;
+
+  if (!cId) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: true,
+      },
+    };
+  }
+
+  const user = await fetch(Number(cId));
+  const { id, username, avatarUrl } = user;
+  const { level, currentExperience, challengesCompleted } = user;
+
+  return {
+    props: {
+      id,
+      username,
+      avatarUrl,
+      level: level ?? 0,
+      currentExperience: currentExperience ?? 0,
+      challengesCompleted: challengesCompleted ?? 0,
+    },
+  };
+};

@@ -25,6 +25,10 @@
 
     @apply transition-300;
   }
+
+  .input-textbox button img {
+    @apply w-5 h-5 xl:w-8 xl:h-8;
+  }
 }
 
 @layer utilities {

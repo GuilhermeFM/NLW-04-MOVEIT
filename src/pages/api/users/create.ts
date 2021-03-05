@@ -1,23 +1,6 @@
-import { NowRequest, NowResponse } from '@vercel/node';
-import { MongoClient, Db } from 'mongodb';
 import axios from 'axios';
-
-let cachedDB: Db = null;
-
-async function connectToDatabase(uri: string) {
-  if (cachedDB) {
-    return cachedDB;
-  }
-
-  const client = await MongoClient.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
-  cachedDB = client.db('moveit');
-
-  return cachedDB;
-}
+import { NowRequest, NowResponse } from '@vercel/node';
+import { create } from '../../../services/mongodb';
 
 export default async (nowRequest: NowRequest, nowResponse: NowResponse) => {
   const { access_token } = nowRequest.body;
@@ -29,26 +12,6 @@ export default async (nowRequest: NowRequest, nowResponse: NowResponse) => {
   });
 
   const { id, login: username, avatar_url: avatarUrl } = response.data;
-
-  const db = await connectToDatabase(process.env.MONGODB_URI);
-
-  const users = db.collection('users');
-
-  let user = await users.findOne({ id: Number(id) });
-
-  if (!user) {
-    user = {
-      id,
-      username,
-      avatarUrl,
-      level: 0,
-      currentExperience: 0,
-      challengesCompleted: 0,
-      RegisterDate: new Date(),
-    };
-
-    await users.insertOne(user);
-  }
-
+  const user = await create({ id, username, avatarUrl });
   return nowResponse.status(200).json(user);
 };
