@@ -20,6 +20,7 @@ export default function CompleteSignIn({ code }: CompleteSignInProps) {
       if (!access_token) {
         replace('/');
       }
+
       const { data } = await axios.post('/api/users/create', { access_token });
       const { id } = data;
       Cookies.set('id', id);
@@ -34,7 +35,7 @@ export default function CompleteSignIn({ code }: CompleteSignInProps) {
       <img
         src="/logos/logo-background.svg"
         alt="loading"
-        className="p-8 h-full object-center animate-pulse"
+        className="p-8 w-full h-full object-center animate-pulse"
       />
     </div>
   );

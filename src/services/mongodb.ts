@@ -36,6 +36,7 @@ export async function create(pUser: User): Promise<User> {
 
   const user = { ...pUser, id, RegisterDate: new Date() };
   await users.insertOne(user);
+  return user;
 }
 
 export async function fetch(id: number): Promise<User> {
