@@ -5,11 +5,11 @@
 .experience-bar-min-exp,
 .experience-bar-max-exp,
 .experience-bar-current-exp {
-  @apply font-inter text-sm sm:text-base text-black;
+  @apply font-inter text-sm sm:text-base text-brand-text;
 }
 
 .experience-bar-meter {
-  @apply relative flex-1 mx-6 my-0 rounded bg-gray;
+  @apply relative flex-1 mx-6 my-0 rounded bg-brand-gray-line;
 }
 
 .experience-bar-meter-overlay {

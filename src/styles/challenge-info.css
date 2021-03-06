@@ -4,7 +4,7 @@
 }
 
 .challenge-info-p {
-  @apply font-inter text-black text-2xl font-medium text-center;
+  @apply font-inter text-brand-text text-2xl font-medium text-center;
 }
 
 .challenge-info-content {
@@ -16,5 +16,5 @@
 }
 
 .challenge-info-content-p {
-  @apply font-inter text-black text-base font-medium ml-7;
+  @apply font-inter text-brand-text text-base font-medium ml-7;
 }

@@ -11,13 +11,6 @@ interface InputTextWithButtonProps {
 
 function InputTextWithButton({ onClick }: InputTextWithButtonProps) {
   const ref = useRef<HTMLInputElement>();
-  const [filled, setFilled] = useState(false);
-
-  function handleTextOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    if (value.length > 0 && !filled) setFilled(true);
-    if (value.length <= 0) setFilled(false);
-  }
 
   function handleOnClick() {
     const value = ref.current.value;
@@ -27,19 +20,16 @@ function InputTextWithButton({ onClick }: InputTextWithButtonProps) {
   return (
     <div className="app-sign-in-form-input">
       <input
+        ref={ref}
         type="text"
         autoComplete="off"
         placeholder="Digite seu username"
         className="app-sign-in-form-input-control"
-        ref={ref}
-        onChange={handleTextOnChange}
       />
       <button
         type="submit"
         onClick={handleOnClick}
-        className={`app-sign-in-form-input-button ${
-          filled ? 'bg-green-500' : 'bg-blue-dark'
-        } hover:bg-green-500`}
+        className={`app-sign-in-form-input-button hover:bg-green-500`}
       >
         <Icons.Forward className="app-sign-in-form-input-button-img" />
       </button>

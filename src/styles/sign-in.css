@@ -1,7 +1,7 @@
 .app-sign-in {
   @apply w-screen h-screen overflow-auto;
   @apply flex flex-row justify-center items-center;
-  @apply bg-blue;
+  @apply bg-brand-blue-200;
 }
 
 .app-sign-in-main {
@@ -40,7 +40,7 @@
 }
 
 .app-sign-in-form-github-text {
-  @apply font-inter text-base md:text-lg font-medium text-blue;
+  @apply font-inter text-base md:text-lg font-medium text-brand-blue-100;
   @apply ml-6;
 }
 
@@ -51,12 +51,12 @@
 
 .app-sign-in-form-input-control {
   @apply flex-1;
-  @apply bg-transparent bg-gradient-to-r from-blue-dark to-blue;
-  @apply text-sm leading-4 text-white xl:text-xl placeholder-blue;
+  @apply bg-transparent bg-gradient-to-r from-brand-blue-300 to-brand-blue-200;
+  @apply text-sm text-white xl:text-xl placeholder-brand-blue-100;
   @apply h-12 py-2 pl-4 xl:h-20 xl:py-5 xl:pl-8;
 
   @apply border border-solid outline-none rounded-l-md xl:border-2 xl:rounded-l-2xl;
-  @apply border-blue hover:border-blue-dark-1 focus:border-blue-dark-1;
+  @apply border-brand-blue-200 hover:border-brand-blue-300 focus:border-brand-blue-300;
   @apply transition-all duration-200;
 }
 
@@ -64,6 +64,7 @@
   @apply w-12 h-12 xl:w-20 xl:h-20;
   @apply flex flex-row items-center justify-center;
   @apply rounded-r-md xl:rounded-r-2xl focus:outline-none;
+  @apply bg-brand-blue-300;
 
   @apply transition-all duration-300;
 }

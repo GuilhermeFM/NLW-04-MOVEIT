@@ -31,7 +31,7 @@
 }
 
 .challenges-completed {
-  @apply flex flex-row justify-between items-center pb-4 mt-10 border-b border-gray-100 border-solid;
+  @apply flex flex-row justify-between items-center pb-4 mt-10 border-b border-brand-gray-line border-solid;
 }
 
 .challenges-completed-title {
@@ -65,7 +65,7 @@
   @apply flex-1 h-full;
   @apply bg-white px-1 py-1;
   @apply text-center font-rajdhani text-8xl md:text-9xl;
-  @apply border-r border-gray-100 border-solid;
+  @apply border-r-4 border-brand-gray-100 border-solid;
 }
 
 .timer-minutes-left,
@@ -75,6 +75,7 @@
 
 .timer-minutes-right,
 .timer-seconds-right {
+  @apply border-none;
   @apply rounded-tr-md rounded-br-md;
 }
 
@@ -91,7 +92,7 @@
 .start-button {
   @apply w-full h-14 md:h-20;
   @apply flex flex-row items-center justify-center;
-  @apply bg-blue hover:bg-green-600;
+  @apply bg-brand-blue-200 hover:bg-green-600;
   @apply rounded-md focus:outline-none;
   @apply mt-12;
 
@@ -127,7 +128,7 @@
 .stop-button:hover span,
 .stop-button:hover svg path {
   @apply text-white;
-  @apply fill-white;
+  @apply fill-brand-white;
 }
 
 .stop-button-control {
@@ -137,7 +138,7 @@
 }
 
 .stop-button-control-text {
-  @apply text-black;
+  @apply text-brand-text;
 }
 
 .stop-button-controle-svg {

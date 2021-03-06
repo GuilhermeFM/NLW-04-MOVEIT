@@ -17,14 +17,11 @@ export default function CompleteSignIn({ code }: CompleteSignInProps) {
     const requestAccessToken = async () => {
       const response = await axios.post('/api/github/accessToken', { code });
       const { access_token } = response.data;
-
       if (!access_token) {
         replace('/');
       }
-
       const { data } = await axios.post('/api/users/create', { access_token });
       const { id } = data;
-
       Cookies.set('id', id);
       replace('/home');
     };
@@ -33,7 +30,7 @@ export default function CompleteSignIn({ code }: CompleteSignInProps) {
   }, [code]);
 
   return (
-    <div className="w-screen h-screen bg-blue">
+    <div className="w-screen h-screen bg-brand-blue-200">
       <img
         src="/logos/logo-background.svg"
         alt="loading"

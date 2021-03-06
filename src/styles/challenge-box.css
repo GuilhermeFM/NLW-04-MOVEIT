@@ -14,7 +14,7 @@
 .challenge-box-header-text {
   @apply w-full;
   @apply flex flex-row justify-center;
-  @apply font-inter text-lg font-semibold text-blue-100;
+  @apply font-inter text-lg font-semibold text-brand-blue-200;
 }
 
 .challenge-box-header-svg {
@@ -22,11 +22,11 @@
 }
 
 .challenge-box-header-p-1 {
-  @apply font-inter text-black text-xl sm:text-2xl font-semibold mt-6;
+  @apply font-inter text-brand-text text-xl sm:text-2xl font-semibold mt-6;
 }
 
 .challenge-box-header-p-2 {
-  @apply font-inter text-black text-sm sm:text-base font-normal text-center mt-2;
+  @apply font-inter text-brand-text text-sm sm:text-base font-normal text-center mt-2;
 }
 
 .challenge-box-section-2 {

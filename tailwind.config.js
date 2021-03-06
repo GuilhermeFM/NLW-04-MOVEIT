@@ -2,60 +2,43 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+
   theme: {
-    backgroundColor: theme => ({
-      ...theme('colors'),
-      transparent: 'transparent',
-    }),
-    fill: theme => ({
-      white: theme('colors.white'),
-      blue: theme('colors.blue'),
-    }),
     colors: {
-      transparent: {
-        DEFAULT: 'transparent',
-      },
-      white: {
-        DEFAULT: '#FFFFFF',
-        100: '#F2F3F5',
-      },
-      red: colors.red,
-      green: colors.green,
-      gray: {
-        DEFAULT: '#dcdde0',
-        100: '#d7d8da',
-      },
-      blue: {
-        DEFAULT: '#5965e0',
-        light: '#2aa9e0',
-        dark: '#4953b8',
-        'dark-1': '#414AA3',
-      },
-    },
-    textColor: {
       ...colors,
-      black: '#2E384D',
-      white: '#fff',
-      gray: '#666666',
-      blue: '#b3b9ff',
-      'blue-100': '#5965e0',
+      'brand-background': '#f2f3f5',
+      'brand-gray-line': '#dcdde0',
+      'brand-text': '#666666',
+      'brand-text-highlight': '#b3b9ff',
+      'brand-title': '#2e384d',
+
+      'brand-white': '#fff',
+      'brand-red': '#e83f5b',
+      'brand-green': '#4cd62b',
+      'brand-blue-100': '#b3b9ff',
+      'brand-blue-200': '#5965e0',
+      'brand-blue-300': '#4953b8',
+      'brand-blue-twitter': '#2aa9e0',
+      'brand-gray-100': '#f0f1f3',
     },
-    placeholderColor: {
-      white: '#fff',
-      gray: '#666666',
-      blue: '#b3b9ff',
-    },
+
+    fill: theme => theme('colors'),
+    textColor: theme => theme('colors'),
+    placeholderColor: theme => theme('colors'),
+    backgroundColor: theme => theme('colors'),
+
     fontFamily: {
       inter: ['Inter', 'sans-serif'],
       rajdhani: ['Rajdhani'],
     },
-    extend: {},
   },
+
   variants: {
     extend: {
-      backgroundColor: ['focus', 'hover', 'disabled'],
-      borderColor: ['focus', 'hover', 'disabled'],
+      backgroundColor: ['focus', 'hover'],
+      borderColor: ['focus', 'hover'],
     },
   },
+
   plugins: [],
 };
