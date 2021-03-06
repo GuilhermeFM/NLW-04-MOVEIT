@@ -2,7 +2,368 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  padding: 0;
+@layer components {
+  .app-sign-in {
+    @apply w-screen h-screen overflow-auto;
+    @apply flex flex-row justify-center items-center;
+    @apply bg-brand-blue-200;
+  }
+
+  .app-sign-in-main {
+    @apply flex flex-row justify-center items-center;
+    @apply xl:grid xl:grid-cols-2 xl:gap-3 xl:place-items-center;
+    @apply m-5 xl:m-20;
+  }
+
+  .app-sign-in-logo {
+    @apply hidden xl:block xl:h-full;
+    @apply justify-center;
+    @apply object-center;
+  }
+
+  .app-sign-in-form {
+    @apply w-full;
+    @apply xl:p-8;
+  }
+
+  .app-sign-in-form-brand,
+  .app-sign-in-form-github {
+    @apply w-full mb-10;
+  }
+
+  .app-sign-in-form-brand-logo {
+    @apply flex flex-col justify-center;
+  }
+
+  .app-sign-in-form-brand-text {
+    @apply font-inter text-xl md:text-2xl font-semibold text-white;
+    @apply mt-10;
+  }
+
+  .app-sign-in-form-github {
+    @apply flex flex-row items-center;
+  }
+
+  .app-sign-in-form-github-text {
+    @apply font-inter text-base md:text-lg font-medium text-brand-blue-100;
+    @apply ml-6;
+  }
+
+  .app-sign-in-form-input {
+    @apply w-full;
+    @apply flex flex-row items-center justify-center;
+  }
+
+  .app-sign-in-form-input-control {
+    @apply flex-1;
+    @apply bg-transparent bg-gradient-to-r from-brand-blue-300 to-brand-blue-200;
+    @apply text-sm text-white xl:text-xl placeholder-brand-blue-100;
+    @apply h-12 py-2 pl-4 xl:h-20 xl:py-5 xl:pl-8;
+
+    @apply border border-solid outline-none rounded-l-md xl:border-2 xl:rounded-l-2xl;
+    @apply border-brand-blue-200 hover:border-brand-blue-300 focus:border-brand-blue-300;
+    @apply transition-all duration-200;
+  }
+
+  .app-sign-in-form-input-button {
+    @apply w-12 h-12 xl:w-20 xl:h-20;
+    @apply flex flex-row items-center justify-center;
+    @apply rounded-r-md xl:rounded-r-2xl focus:outline-none;
+    @apply bg-brand-blue-300;
+
+    @apply transition-all duration-300;
+  }
+
+  .app-sign-in-form-input-button-img {
+    @apply w-5 h-5 xl:w-8 xl:h-8;
+  }
+
+  .app {
+    @apply w-screen h-screen;
+    @apply flex flex-col justify-between lg:items-center;
+    @apply bg-brand-background;
+  }
+
+  .app-header {
+    @apply fixed w-screen h-14;
+    @apply px-3;
+    @apply flex flex-row items-center justify-between;
+
+    filter: drop-shadow(0px 0px 60px rgba(0, 0, 0, 0.05));
+    background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .app-header-nav-bar {
+    @apply w-full h-full;
+    @apply flex flex-row items-center justify-end;
+  }
+
+  .app-header-nav-bar-home,
+  .app-header-nav-bar-leaderboards {
+    @apply mx-1;
+  }
+
+  .app-header-nav-bar-icon-home,
+  .app-header-nav-bar-icon-leaderboards {
+    @apply w-6 h-6;
+  }
+
+  .app-main {
+    @apply max-w-5xl h-full overflow-auto p-5 lg:p-8 mt-14;
+  }
+
+  .app-main-desktop {
+    height: 500px;
+    @apply grid items-center grid-cols-2 gap-10 mt-24;
+  }
+
+  .app-main-mobile {
+    @apply w-full mt-14 md:px-16;
+  }
+
+  .countdown {
+    @apply h-full;
+  }
+
+  .profile {
+    @apply flex flex-row items-center;
+  }
+
+  .profile-img {
+    @apply rounded-full w-14 h-14;
+  }
+
+  .profile-info {
+    @apply flex-1 ml-4 -mt-1;
+  }
+
+  .profile-info-username {
+    @apply font-semibold text-base font-inter;
+  }
+
+  .profile-level {
+    @apply flex flex-row items-center;
+  }
+
+  .profile-level-img {
+    @apply w-3 h-3;
+  }
+
+  .profile-level-value {
+    @apply text-xs font-inter ml-2;
+  }
+
+  .challenges-completed {
+    @apply flex flex-row justify-between items-center pb-4 mt-10 border-b border-brand-gray-line border-solid;
+  }
+
+  .challenges-completed-title {
+    @apply font-inter text-lg font-medium;
+  }
+
+  .challenges-completed-amount {
+    @apply font-inter text-base font-medium;
+  }
+
+  .timer {
+    @apply flex flex-row;
+    @apply mt-10;
+  }
+
+  .timer-minutes,
+  .timer-seconds {
+    @apply flex-1;
+    @apply flex flex-row items-center;
+    @apply rounded-md shadow-md;
+  }
+
+  .timer-minutes {
+    @apply justify-end;
+  }
+
+  .timer-minutes-left,
+  .timer-minutes-right,
+  .timer-seconds-left,
+  .timer-seconds-right {
+    @apply flex-1 h-full;
+    @apply bg-white px-1 py-1;
+    @apply text-center font-rajdhani text-8xl md:text-9xl;
+    @apply border-r-4 border-brand-gray-100 border-solid;
+  }
+
+  .timer-minutes-left,
+  .timer-seconds-left {
+    @apply rounded-tl-md rounded-bl-md;
+  }
+
+  .timer-minutes-right,
+  .timer-seconds-right {
+    @apply border-none;
+    @apply rounded-tr-md rounded-br-md;
+  }
+
+  .timer-separator {
+    @apply h-full;
+    @apply font-rajdhani text-8xl md:text-9xl;
+    @apply px-1 py-1;
+  }
+
+  .timer-seconds {
+    @apply justify-start;
+  }
+
+  .start-button {
+    @apply w-full h-14 md:h-20;
+    @apply flex flex-row items-center justify-center;
+    @apply bg-brand-blue-200 hover:bg-green-600;
+    @apply rounded-md focus:outline-none;
+    @apply mt-12;
+
+    @apply transition-all duration-200;
+  }
+
+  .start-button-text,
+  .stop-button-control-text {
+    @apply h-full;
+    @apply flex justify-center items-center;
+    @apply font-inter text-base md:text-xl font-medium;
+  }
+
+  .start-button-text {
+    @apply text-white;
+  }
+
+  .start-button-svg {
+    @apply h-6 w-6 md:h-8 md:w-8;
+    @apply ml-2 -mb-0.5;
+  }
+
+  .stop-button {
+    @apply w-full h-14 md:h-20;
+    @apply flex flex-col;
+    @apply bg-white hover:bg-red-500 rounded-md;
+    @apply mt-12;
+
+    @apply shadow-md;
+    @apply transition-all duration-300;
+  }
+
+  .stop-button:hover span,
+  .stop-button:hover svg path {
+    @apply text-white;
+    @apply fill-brand-white;
+  }
+
+  .stop-button-control {
+    @apply w-full h-full;
+    @apply bg-transparent rounded-t-md focus:outline-none;
+    @apply flex flex-row items-center justify-center;
+  }
+
+  .stop-button-control-text {
+    @apply text-brand-text;
+  }
+
+  .stop-button-controle-svg {
+    @apply h-6 w-6 md:h-8 md:w-8;
+    @apply ml-2 -mb-0.5;
+  }
+
+  .stop-button-progress-bar {
+    @apply h-1 bg-green-500 rounded-b-md;
+    @apply transition-all duration-200;
+  }
+
+  .reset-button {
+  }
+
+  .challenge-box {
+    height: 500px;
+    @apply h-full w-full flex flex-col items-center bg-white rounded-md shadow-md;
+  }
+
+  .challenge-box-section-1 {
+    @apply flex-1 flex flex-col items-center justify-evenly p-5;
+  }
+
+  .challenge-box-header {
+    @apply w-full pb-4 border-b border-gray-100 mb-8;
+  }
+
+  .challenge-box-header-text {
+    @apply w-full;
+    @apply flex flex-row justify-center;
+    @apply font-inter text-lg font-semibold text-brand-blue-200;
+  }
+
+  .challenge-box-header-svg {
+    @apply h-24 w-24 sm:h-auto sm:w-auto;
+  }
+
+  .challenge-box-header-p-1 {
+    @apply font-inter text-brand-text text-xl sm:text-2xl font-semibold mt-6;
+  }
+
+  .challenge-box-header-p-2 {
+    @apply font-inter text-brand-text text-sm sm:text-base font-normal text-center mt-2;
+  }
+
+  .challenge-box-section-2 {
+    @apply flex flex-row items-stretch w-full mt-6;
+  }
+
+  .challenge-box-red-button {
+    @apply w-full h-14 font-medium text-red-600 bg-red-300 hover:bg-red-400 hover:text-red-800 rounded-bl-md;
+    @apply transition-all duration-300;
+  }
+
+  .challenge-box-green-button {
+    @apply w-full h-14 font-medium text-green-600 bg-green-300 hover:bg-green-400 hover:text-green-800 rounded-br-md;
+    @apply transition-all duration-300;
+  }
+
+  .challenge-info {
+    height: 500px;
+    @apply h-full flex flex-col justify-evenly p-20 bg-white rounded-md shadow-md;
+  }
+
+  .challenge-info-p {
+    @apply font-inter text-brand-text text-2xl font-medium text-center;
+  }
+
+  .challenge-info-content {
+    @apply flex flex-row items-center mt-10;
+  }
+
+  .challenge-info-content-svg {
+    @apply h-8 w-11;
+  }
+
+  .challenge-info-content-p {
+    @apply font-inter text-brand-text text-base font-medium ml-7;
+  }
+
+  .experience-bar {
+    @apply w-full flex flex-row items-center;
+  }
+
+  .experience-bar-min-exp,
+  .experience-bar-max-exp,
+  .experience-bar-current-exp {
+    @apply font-inter text-sm sm:text-base text-brand-text;
+  }
+
+  .experience-bar-meter {
+    @apply relative flex-1 mx-6 my-0 rounded bg-brand-gray-line;
+  }
+
+  .experience-bar-meter-overlay {
+    @apply h-1 bg-green-500 rounded;
+    @apply transition-all duration-1000;
+  }
+
+  .experience-bar-current-exp {
+    @apply absolute transform w-max -translate-x-2/4 top-3;
+    @apply transition-all duration-1000;
+  }
 }

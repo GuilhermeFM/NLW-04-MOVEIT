@@ -25,7 +25,7 @@ module.exports = {
     fill: theme => theme('colors'),
     textColor: theme => theme('colors'),
     placeholderColor: theme => theme('colors'),
-    backgroundColor: theme => theme('colors'),
+    backgroundColor: theme => ({ ...theme('colors'), transparent: 'transparent' }),
 
     fontFamily: {
       inter: ['Inter', 'sans-serif'],
@@ -40,5 +40,5 @@ module.exports = {
     },
   },
 
-  plugins: [],
+  plugins: ['tailwindcss'],
 };
