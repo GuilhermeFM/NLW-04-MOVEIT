@@ -24,7 +24,7 @@ interface ChallengeContextData {
   closeLevelUpModal(): void;
   startNewChallenge(): void;
   resetChallenge(): void;
-  completeChallenge(): Promise<void>;
+  completeChallenge(): void;
 }
 
 interface ChallengeProviderProps {
@@ -77,7 +77,7 @@ export default function ChallengeProvider({ children, ...rest }: ChallengeProvid
     setActiveChallenge(null);
   }
 
-  async function completeChallenge() {
+  function completeChallenge() {
     if (!activeChallenge) return;
 
     const { amount } = activeChallenge;
@@ -95,7 +95,7 @@ export default function ChallengeProvider({ children, ...rest }: ChallengeProvid
     setCurrentExperience(finalExperience);
     setChallengesCompleted(challengesCompleted + 1);
 
-    await axios.post('/api/users/update', {
+    axios.post('/api/users/update', {
       id,
       info: {
         level: level + 1,
@@ -127,7 +127,7 @@ export default function ChallengeProvider({ children, ...rest }: ChallengeProvid
       }}
     >
       {children}
-      {isLevelUpModalOpen && <LevelUpModal />}
+      {/* {isLevelUpModalOpen && <LevelUpModal />} */}
     </ChallengeContext.Provider>
   );
 }

@@ -9,6 +9,7 @@ interface CountdownContextData {
 
   startCountdown(): void;
   resetCountdown(): void;
+  currentPercentageOfElapsedTime(): number;
 }
 
 interface CountdownProviderProps {
@@ -18,13 +19,12 @@ interface CountdownProviderProps {
 export const CountdownContext = createContext({} as CountdownContextData);
 
 let countdownTimeout: NodeJS.Timeout;
+const totalTime = 0.1 * 60;
 
-export default function CountdownProvider({
-  children,
-}: CountdownProviderProps) {
+export default function CountdownProvider({ children }: CountdownProviderProps) {
   const { startNewChallenge } = useContext(ChallengeContext);
 
-  const [time, setTime] = useState(30 * 60);
+  const [time, setTime] = useState(totalTime);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
@@ -38,8 +38,12 @@ export default function CountdownProvider({
   function resetCountdown() {
     clearTimeout(countdownTimeout);
     setIsActive(false);
-    setTime(0.1 * 60);
+    setTime(totalTime);
     setHasFinished(false);
+  }
+
+  function currentPercentageOfElapsedTime() {
+    return ((totalTime - time) / totalTime) * 100;
   }
 
   useEffect(() => {
@@ -61,6 +65,7 @@ export default function CountdownProvider({
         hasFinished,
         startCountdown,
         resetCountdown,
+        currentPercentageOfElapsedTime,
       }}
     >
       {children}

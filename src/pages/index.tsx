@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { useState, useRef } from 'react';
 import { GetServerSideProps } from 'next';
 
+import * as Icons from '../components/Icons';
+
 interface InputTextWithButtonProps {
   onClick(value: string): void;
 }
@@ -23,20 +25,23 @@ function InputTextWithButton({ onClick }: InputTextWithButtonProps) {
   }
 
   return (
-    <div className="input-textbox">
+    <div className="app-sign-in-form-input">
       <input
         type="text"
         autoComplete="off"
         placeholder="Digite seu username"
-        onChange={handleTextOnChange}
+        className="app-sign-in-form-input-control"
         ref={ref}
+        onChange={handleTextOnChange}
       />
       <button
         type="submit"
         onClick={handleOnClick}
-        className={`${filled ? 'bg-green-500' : 'bg-blue-dark'} hover:bg-green-500`}
+        className={`app-sign-in-form-input-button ${
+          filled ? 'bg-green-500' : 'bg-blue-dark'
+        } hover:bg-green-500`}
       >
-        <img alt="logar" src="/icons/arrow-right.svg" />
+        <Icons.Forward className="app-sign-in-form-input-button-img" />
       </button>
     </div>
   );
@@ -50,32 +55,23 @@ export default function SignIn() {
   }
 
   return (
-    <div className="w-screen h-screen overflow-auto bg-blue flex-middle">
-      <div className="w-5/6 h-full xl:w-full xl:justify-evenly flex-middle">
+    <div className="app-sign-in">
+      <div className="app-sign-in-main">
         <Head>
           <title>Login | move.it</title>
         </Head>
 
-        <div className="hidden xl:flex-middle xl:h-3/6 xl:w-5/12">
-          <img src="/icons/background-logo.svg" alt="background" />
-        </div>
+        <img className="app-sign-in-logo" src="/logos/logo-background.svg" alt="background" />
 
-        <div className="w-full lg:w-6/12 xl:w-5/12 xl:h-3/6 flex-col-middle">
-          <header className="flex flex-col w-full mb-10">
-            <section className="mb-10">
-              <img src="/icons/logo.svg" alt="move it" />
-              <p className="mt-10 text-2xl font-semibold leading-9 text-white font-inter">
-                Bem Vindo
-              </p>
-            </section>
-
-            <section className="flex items-center">
-              <img src="/icons/github-logo.svg" alt="github-logo" />
-              <p className="ml-6 text-lg font-medium leading-7 font-inter text-blue">
-                Faça login com seu github para começar
-              </p>
-            </section>
-          </header>
+        <div className="app-sign-in-form">
+          <section className="app-sign-in-form-brand">
+            <img src="/logos/logo-text.svg" alt="move it" />
+            <p className="app-sign-in-form-brand-text">Bem Vindo</p>
+          </section>
+          <section className="app-sign-in-form-github">
+            <img src="/logos/logo-github.svg" alt="github-logo" />
+            <p className="app-sign-in-form-github-text">Faça login com seu github para começar</p>
+          </section>
           <InputTextWithButton onClick={handleOnClick} />
         </div>
       </div>

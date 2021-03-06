@@ -1,0 +1,42 @@
+.app {
+  @apply w-screen h-screen;
+  @apply flex flex-col justify-between lg:items-center;
+  @apply bg-white-100;
+}
+
+.app-header {
+  @apply fixed w-screen h-14;
+  @apply px-3;
+  @apply flex flex-row items-center justify-between;
+
+  filter: drop-shadow(0px 0px 60px rgba(0, 0, 0, 0.05));
+  background: linear-gradient(270deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.app-header-nav-bar {
+  @apply w-full h-full;
+  @apply flex flex-row items-center justify-end;
+}
+
+.app-header-nav-bar-home,
+.app-header-nav-bar-leaderboards {
+  @apply mx-1;
+}
+
+.app-header-nav-bar-icon-home,
+.app-header-nav-bar-icon-leaderboards {
+  @apply w-6 h-6;
+}
+
+.app-main {
+  @apply max-w-5xl h-full overflow-auto p-5 lg:p-8 mt-14;
+}
+
+.app-main-desktop {
+  height: 500px;
+  @apply grid items-center grid-cols-2 gap-10 mt-24;
+}
+
+.app-main-mobile {
+  @apply w-full mt-14 md:px-16;
+}

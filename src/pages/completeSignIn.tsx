@@ -33,10 +33,12 @@ export default function CompleteSignIn({ code }: CompleteSignInProps) {
   }, [code]);
 
   return (
-    <div className="w-screen h-screen bg-blue flex-middle ">
-      <div>
-        <img src="/icons/background-logo.svg" alt="loading" className="animate-pulse" />
-      </div>
+    <div className="w-screen h-screen bg-blue">
+      <img
+        src="/logos/logo-background.svg"
+        alt="loading"
+        className="p-8 h-full object-center animate-pulse"
+      />
     </div>
   );
 }
